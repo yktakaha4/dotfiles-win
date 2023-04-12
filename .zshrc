@@ -132,27 +132,26 @@ alias lgrep='grep --line-buffered'
 alias tf='terraform'
 alias tfp='terraform plan -no-color | grep --line-buffered -E "^\S+|^\s{,2}(\+|-|~|-/\+) |^\s<=|^Plan"'
 
-alias open='xdg-open'
+alias open='explorer.exe'
 
 alias curlj='curl -s -XPOST -H "accept:application/json" -H"content-type:application/json"'
 
-which xclip > /dev/null || sudo apt-get install -y xclip
-alias pbcopy='xclip -selection c'
-alias pbpaste='xclip -selection c -o'
+alias pbcopy='clip.exe'
+alias pbpaste="powershell.exe -command 'Get-Clipboard'"
 alias pbvim="pbpaste | pvim | pbcopy"
 
 alias colorpallet='for c in {000..255}; do echo -n "\e[38;5;${c}m $c" ; [ $(($c%16)) -eq 15 ] && echo;done'
 alias viminstall="vim +PluginInstall +qall"
 
-alias shutdown='systemctl poweroff -i'
-alias reboot='systemctl reboot -i'
+alias shutdown='shutdown.exe /s /f /t 0'
+alias reboot='shutdown.exe /r /f /t 0'
 
-alias dcu='docker-compose up -d --remove-orphans'
-alias dcd='docker-compose down'
-alias dcl='docker-compose logs -f --tail=10'
-alias dcp='docker-compose ps'
-alias dcx='docker-compose exec'
-alias dcr='docker-compose restart'
+alias dcu='docker compose up -d --remove-orphans'
+alias dcd='docker compose down'
+alias dcl='docker compose logs -f --tail=10'
+alias dcp='docker compose ps'
+alias dcx='docker compose exec'
+alias dcr='docker compose restart'
 function dcul() {
   dcu $@ && dcl
 }
@@ -170,7 +169,6 @@ alias editorconfig="cat $HOME/.dotfiles/.editorconfig"
 alias makefile="cat $HOME/.dotfiles/.Makefile"
 
 alias tailf="tail -f"
-alias open="xdg-open"
 alias hdiff="$HOME/.dotfiles/submodules/diff2html-cli/bin/diff2html -i stdin"
 
 alias ssh="ssh -o ServerAliveInterval=60"
@@ -189,24 +187,17 @@ alias iam='aws sts get-caller-identity --query Arn --output text'
 [[ -e "$HOME/.vimrc" ]] || ln -s "$HOME/.dotfiles/.vimrc" "$HOME/.vimrc"
 if [[ ! -e "$HOME/.vim/bundle/Vundle.vim" ]]
 then
+  mkdir -p "$HOME/.vim/bundle"
   ln -s "$HOME/.dotfiles/submodules/Vundle.vim" "$HOME/.vim/bundle/Vundle.vim"
   vim +PluginInstall +qall
 fi
 
-# xinput
-[[ -f "$HOME/.xmodmap" ]] || ln -s "$HOME/.dotfiles/.xmodmap" "$HOME/.xmodmap"
-[[ -f "$HOME/.xinputrc" ]] || ln -s "$HOME/.dotfiles/.xinputrc" "$HOME/.xinputrc"
-
-# diff
-[[ -e "$HOME/.dotfiles/submodules/diff2html-cli/node_modules" ]] || (
-  cd "$HOME/.dotfiles/submodules/diff2html-cli"
-  yarn build
-)
-
 # envs
-
 which curl >/dev/null || sudo apt-get install -y curl
 which tmux >/dev/null || sudo apt-get install -y tmux
+which bc >/dev/null || sudo apt-get install -y bc
+which jq >/dev/null || sudo apt-get install -y jq
+which rbenv >/dev/null || sudo apt-get install -y rbenv
 
 # tmux
 [[ -f "$HOME/.tmux.conf" ]] || ln -s "$HOME/.dotfiles/.tmux.conf" "$HOME/.tmux.conf"
@@ -239,6 +230,11 @@ pyenv which poetry > /dev/null 2>&1 && (
 # nodenv
 export PATH="$HOME/.dotfiles/submodules/nodenv/bin:$PATH"
 eval "$(nodenv init -)"
+
+[[ -e "$(nodenv root)"/plugins/node-build ]] || (
+  mkdir -p "$(nodenv root)"/plugins
+  git clone https://github.com/nodenv/node-build.git "$(nodenv root)"/plugins/node-build
+)
 
 export NODETOOLS_PATH="$HOME/.dotfiles/scripts/nodetools"
 [[ -e "$NODETOOLS_PATH/node_modules" ]] || (
@@ -303,3 +299,5 @@ done
 if [ -e /home/tkhs/.nix-profile/etc/profile.d/nix.sh ]; then . /home/tkhs/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 export PATH="$PATH:/opt/apache-maven-3.6.3/bin:/opt/gradle-6.7/bin"
+
+[[ -s "/home/tkhs/.gvm/scripts/gvm" ]] && source "/home/tkhs/.gvm/scripts/gvm"
