@@ -263,7 +263,7 @@ source <(kubectl completion zsh)
 source <(helm completion zsh)
 
 # https://github.com/sh0rez/kubectl-neat-diff
-export KUBECTL_EXTERNAL_DIFF=kubectl-neat-diff
+# export KUBECTL_EXTERNAL_DIFF=kubectl-neat-diff
 
 source "$HOME/.dotfiles/submodules/kube-ps1/kube-ps1.sh"
 export KUBE_PS1_PREFIX=""
