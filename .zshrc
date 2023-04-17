@@ -300,4 +300,8 @@ if [ -e /home/tkhs/.nix-profile/etc/profile.d/nix.sh ]; then . /home/tkhs/.nix-p
 
 export PATH="$PATH:/opt/apache-maven-3.6.3/bin:/opt/gradle-6.7/bin"
 
+export DISPLAY=`hostname`.mshome.net:0.0
+
+export GH_BROWSER='explorer.exe'
+
 [[ -s "/home/tkhs/.gvm/scripts/gvm" ]] && source "/home/tkhs/.gvm/scripts/gvm"
