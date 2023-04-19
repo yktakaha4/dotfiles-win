@@ -15,7 +15,7 @@
   cfg = "config --list"
   d = "diff"
   ds = "diff --staged"
-  f = "fetch -p"
+  f = "!f() { git fetch -p; git remote set-head origin --auto; }; f"
   s = "status -s"
   l = "log --oneline --graph --decorate"
   lv = "log --oneline --graph --pretty=fuller"
