@@ -152,6 +152,7 @@ alias dcl='docker compose logs -f --tail=10'
 alias dcp='docker compose ps'
 alias dcx='docker compose exec'
 alias dcr='docker compose restart'
+alias docker-compose='docker compose'
 function dcul() {
   dcu $@ && dcl
 }
