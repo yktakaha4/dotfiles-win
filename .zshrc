@@ -7,7 +7,7 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
 # env
-export PATH="$HOME/.dotfiles/bin:$PATH"
+export PATH="$HOME/.dotfiles/bin:$HOME/.local/bin:$PATH"
 export EDITOR="vim"
 export PAGER="less"
 
@@ -159,7 +159,8 @@ function dcul() {
 
 alias k='kubectl'
 alias kl='kubectl logs --max-log-requests 10 --tail=10000000 --timestamps --ignore-errors --prefix'
-alias kk='kubectl kustomize'
+alias km='kustomize'
+alias kmd='kustomize build | kubectl diff -f -'
 alias kgpo='kubectl get po -o wide'
 alias kgno='kubectl get no -o wide'
 alias k9s='k9s --readonly'
@@ -253,6 +254,10 @@ export PATH="$HOME/.dotfiles/submodules/tfenv/bin:$PATH"
 # jenv
 export PATH="$HOME/.dotfiles/submodules/jenv/bin:$PATH"
 eval "$(jenv init -)"
+
+# rust
+[[ -e "$HOME/.cargo" ]] || curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+source "$HOME/.cargo/env"
 
 # krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
