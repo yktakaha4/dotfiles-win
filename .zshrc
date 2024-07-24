@@ -317,3 +317,6 @@ export DISPLAY=`hostname`.mshome.net:0.0
 export GH_BROWSER='wslview'
 
 [[ -s "/home/tkhs/.gvm/scripts/gvm" ]] && source "/home/tkhs/.gvm/scripts/gvm"
+
+# aws-vault
+export AWS_VAULT_BACKEND=pass
