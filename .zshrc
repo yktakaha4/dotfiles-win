@@ -166,6 +166,14 @@ alias kgno='kubectl get no -o wide'
 alias k9s='k9s --readonly'
 alias k9sw='\k9s'
 alias mk='minikube kubectl --'
+alias kgnos='kubectl get nodes -o "custom-columns=NAME:.metadata.name,CREATED:.metadata.creationTimestamp,TYPE:.metadata.labels.type,AVAIL_ZONE:.metadata.labels.topology\.kubernetes\.io/zone,INSTANCE_TYPE:.metadata.labels.node\.kubernetes\.io/instance-type,CPU:.status.capacity.cpu,MEMORY:.status.capacity.memory,STORAGE:.status.capacity.ephemeral-storage,PODS:status.capacity.pods,INSTANCE_ID:spec.providerID" | sed "s@aws://.\+/@@g"'
+alias krno='kubectl resource-capacity --util --pod-count'
+alias krpo='kubectl resource-capacity --util --pod-count --pods'
+alias krco='kubectl resource-capacity --util --pod-count --containers'
+
+function kgpobyno() {
+  kubectl get po --field-selector "spec.nodeName=$1" ${@:2}
+}
 
 alias editorconfig="cat $HOME/.dotfiles/.editorconfig"
 alias makefile="cat $HOME/.dotfiles/.Makefile"
@@ -320,3 +328,11 @@ export GH_BROWSER='wslview'
 
 # aws-vault
 export AWS_VAULT_BACKEND=pass
+
+# clean .zsh_history
+(
+  cd ~
+  mv -f .zsh_history /tmp/.zsh_history_bad
+  strings /tmp/.zsh_history_bad > .zsh_history
+  fc -R .zsh_history
+)
