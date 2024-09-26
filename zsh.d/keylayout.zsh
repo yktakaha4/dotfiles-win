@@ -18,7 +18,8 @@ then
   if [[ "$(cat "$HOME/.keylayout")" = "us" ]]
   then
     setus
-  else
+  elif [[ "$(cat "$HOME/.keylayout")" = "jis" ]]
+  then
     setjis
   fi
 fi
