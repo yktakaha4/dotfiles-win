@@ -328,11 +328,3 @@ export GH_BROWSER='wslview'
 
 # aws-vault
 export AWS_VAULT_BACKEND=pass
-
-# clean .zsh_history
-(
-  cd ~
-  mv -f .zsh_history /tmp/.zsh_history_bad
-  strings /tmp/.zsh_history_bad > .zsh_history
-  fc -R .zsh_history
-)
